@@ -2,7 +2,6 @@ namespace structures
 {
     public class Hash
     {
-        int value;
         int[] table;
         bool[] deleted;
         int N;
@@ -13,6 +12,7 @@ namespace structures
             deleted = new bool[N];
             this.N = N;
         }
+        
         public int HashMethod(string value)
         {
             int i = 0;
