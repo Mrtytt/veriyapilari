@@ -4,14 +4,24 @@ using App;
 
 namespace structs
 {
-
+    /// <summary>
+    /// Burada Menu varlığımızı oluşturuyoruz. Bu menü varlığı bir kategori listesine sahip
+    /// ve bir 
+    /// </summary>
     public class Menu
     {
+        
         public Category[] categories;
 
         [JsonIgnore]
         public tree<Category,Food,string> menuTree;
 
+        /// <summary>
+        /// Menü dosyadan okunduktan sonra bunun ağaca yazdırır
+        /// Kategori sayısı N
+        /// Kategorilerdeki yemek sayısı M
+        /// O(N*M)
+        /// </summary>
         public void Init()
         {
             menuTree = new tree<Category,Food,string>("Menü");
@@ -30,6 +40,12 @@ namespace structs
             }
         }
 
+        /// <summary>
+        /// Yeni kategori ekler
+        /// O(N) 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="id"></param>
         public void addCategory(string name,int id)
         {
             /*
@@ -75,6 +91,11 @@ namespace structs
 
         }
 
+        /// <summary>
+        /// Id ye göre kategori çıkarır , arrayi kaydetme için günceller
+        /// O(N) 
+        /// </summary>
+        /// <param name="id"></param>
         public void removeCategory(int id)
         {
             // update array
@@ -93,6 +114,13 @@ namespace structs
             object obj = menuTree.root.removeChildren(id);
         }
 
+
+        /// <summary>
+        /// id ye göre category döndürür
+        /// O(N)
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public Category getCategory(int id)
         {
             Category val = new Category("",0);
@@ -107,6 +135,15 @@ namespace structs
             return val;
         }
 
+        /// <summary>
+        /// seçilen yemeği çıkarır 
+        /// categori sayısı N
+        /// yemek sayısı M
+        /// O(N * M)
+        /// </summary>
+        /// <param name="categoryId"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public Food removeFood(int categoryId, int id)
         {
             
@@ -115,6 +152,15 @@ namespace structs
             return removed;
         }
 
+        /// <summary>
+        /// id lere göre yemek döndürür
+        /// kategori sayısı M
+        /// yemek sayısı N
+        /// O(N*M) 
+        /// </summary>
+        /// <param name="categoryId"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public Food getFood(int categoryId, int id)
         {
             Category cc = getCategory(categoryId);
@@ -129,11 +175,23 @@ namespace structs
             menuTree.Print();
         }
 
+        /// <summary>
+        /// stringe çevirir
+        /// kategori sayısı N
+        /// yemek sayısı M
+        /// O(N*M)
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return menuTree.ToString();
         }
 
+        /// <summary>
+        /// Menüyü dosyaya json a kaydeder
+        /// Karmaşıkşığı Jsona çevirme kadardır 
+        /// </summary>
+        /// <param name="path"></param>
         public void SaveMenu(string path = Globals.MENU_PATH)
         {
             string data = ToJson();
@@ -149,11 +207,23 @@ namespace structs
             }
         }
 
+        /// <summary>
+        /// objeyi json stringine çevirir kaydetmek için
+        /// karmaşıklığı Jsona çevirme kadardır 
+        /// </summary>
+        /// <returns></returns>
         public string ToJson()
         {
             return JsonConvert.SerializeObject(this);
         }
 
+
+        /// <summary>
+        /// dosya uzantısından menü objesi oluşuturur
+        /// karmaşıklığı FromJson kadardır
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         public static Menu FromPath(string path = Globals.MENU_PATH)
         {
 
@@ -174,6 +244,12 @@ namespace structs
             }
         }
 
+        /// <summary>
+        /// dosyanın okunması stringini objeye çevirir
+        /// karmaşıklığı dönüştürme kadardır 
+        /// </summary>
+        /// <param name="json"></param>
+        /// <returns></returns>
         public static Menu FromJson(string json)
         {
             try
@@ -208,12 +284,23 @@ namespace structs
             //UpdateBranch();
         }
 
+        /// <summary>
+        /// yeni bir yemek ekler kategoriye
+        /// O(N) 
+        /// </summary>
+        /// <param name="newFood"></param>
         public void AddFood(Food newFood)
         {
             branch.addChildren(newFood);
             UpdateArray();
         }
 
+        /// <summary>
+        /// kategoriden yemek çıkarır
+        /// O(N)
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
         public Food RemoveFood(int index)
         {
             Food removed = branch.removeChildren(index);
@@ -225,6 +312,12 @@ namespace structs
             return removed;
         }
 
+        /// <summary>
+        /// id ye göre yemeği döndürür
+        /// O(N) 
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
         public Food GetFood(int index)
         {
             if (branch == null)
@@ -243,6 +336,10 @@ namespace structs
             return get;
         }
 
+        /// <summary>
+        /// katgoriyi günceller ağacı yada arrayi
+        /// O(N) 
+        /// </summary>
         public void Update()
         {
             if (!lastUpdatedIsBranch)
@@ -259,6 +356,7 @@ namespace structs
 
         /// <summary>
         /// normal değerleri alır ve ağacı günceller
+        /// O(N)
         /// </summary>
         public void UpdateBranch()
         {
@@ -277,11 +375,20 @@ namespace structs
             }
         }
 
+        /// <summary>
+        /// Arrayi günceller 
+        /// O(N) 
+        /// </summary>
         public void UpdateArray()
         {
             foods = branch.chlidren.ToArray();
         }
 
+        /// <summary>
+        /// ismini döndürür
+        /// O(1) 
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return name;
@@ -296,6 +403,11 @@ namespace structs
         public string description;
         public int price;
 
+        /// <summary>
+        /// stringe çevirir
+        /// O(1) 
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             string val = string.Format("[{0}₺] ({3}) {1} : {2}",price, name, description, id);

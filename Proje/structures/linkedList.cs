@@ -27,6 +27,10 @@ namespace structures
             end = null;
         }
 
+        /// <summary>
+        /// listenin boş mu olup olmadığını kontrol eder
+        /// O(1)
+        /// </summary>
         public bool isEmpty
         {
             get {
@@ -34,6 +38,10 @@ namespace structures
             }
         }
 
+        /// <summary>
+        /// listenin tek elemanı olma özel durumunu kontrol eder
+        /// O(1)
+        /// </summary>
         public bool hasOneElement
         {
             get {
@@ -41,6 +49,10 @@ namespace structures
             }
         }
 
+        /// <summary>
+        /// listenini uzunluğunu döndürür
+        /// O(N)
+        /// </summary>
         public int Lenght
         {
             get {
@@ -58,6 +70,11 @@ namespace structures
             }
         }
 
+        /// <summary>
+        /// listeye yeni bir eleman ekler
+        /// O(1)
+        /// </summary>
+        /// <param name="item"></param>
         public void add(T item)
         {
             listNode<T> newNode = new listNode<T>(item);
@@ -85,7 +102,12 @@ namespace structures
         }
 
 
-        // removes by index
+        /// <summary>
+        /// listeden indexine göre eleman çıkarır
+        /// O(N)
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
         public T remove(int index)
         {
             //System.Console.WriteLine(index);
@@ -114,6 +136,12 @@ namespace structures
             return removed.self;
         }
 
+        /// <summary>
+        /// listede index değerine göre elemanı döndürür
+        /// O(N)
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
         public T get(int index)
         {
             listNode<T> temp = head;
@@ -131,11 +159,21 @@ namespace structures
             return get.self;
         }
 
+        /// <summary>
+        /// ToString() değerini yazdırır
+        /// O(N)
+        /// </summary>
+        /// <param name="space"></param>
         public void Print(int space)
         {
             Console.WriteLine(this.ToString());
         }
 
+        /// <summary>
+        /// listeyi arraye çevirir
+        /// O(N) 
+        /// </summary>
+        /// <returns></returns>
         public T[] ToArray()
         {
             T[] val =  new T[Lenght];
@@ -151,6 +189,11 @@ namespace structures
             return val;
         }
 
+        /// <summary>
+        /// listeyi stringe çevirir
+        /// O(N)
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();

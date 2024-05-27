@@ -1,9 +1,12 @@
-using structs;
+    using structs;
 using structures;
 using CLI;
 
 namespace structs
 {
+    /// <summary>
+    /// Burada kullanıcan bir sipariş alıyoruz ve bir sipariş sınıfı oluşturuyoruz.
+    /// </summary>
     public class Order
     {
 
@@ -19,6 +22,11 @@ namespace structs
             Update();
         }
 
+        /// <summary>
+        /// Burada siparişimizi güncelliyoruz.
+        /// Karmaşıklıklığı gelen siparişin içerdiği yemek sayısı kadardır.
+        /// O(n) denilebilir.
+        /// </summary>
         public void Update()
         {
             string val ="";
@@ -38,12 +46,20 @@ namespace structs
             price = pr;
         }
 
+        /// <summary>
+        /// Burada bize gelen siparişi düzenleyip string hale getiriyoruz.
+        /// O(1)
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return string.Format("[{0}₺] {1}", price, str);
         }
     }
-
+    /// <summary>
+    /// Burada bir sipariş kuyruğu oluşturuyoruz.
+    /// 
+    /// </summary>
     public class OrderQueue
     {
         AQueue<Order> queue;
@@ -55,7 +71,11 @@ namespace structs
             queue = new AQueue<Order>();
             this.menu = menu;
         }
-
+        /// <summary>
+        /// Gelen sipariş stringini içerdiği yemeklere göre bölüp onları siparişlere ekler.
+        /// Karmaşıklığı gelen sipariş stringinin uzunluğuna göre değişir ancak O(n) denilebilir.
+        /// </summary>
+        /// <param name="orderString"></param>
         public void AddOrder(string orderString)
         {
 
@@ -81,6 +101,11 @@ namespace structs
             queue.Enqueue(newOrder);
         }
 
+        /// <summary>
+        /// Burada gelen siparişi tamamlanıyoruz ve tamamlandığını ekrana yazdırıyoruz.
+        /// Karmaşıklığı Dequeue() fonksiyonunun karmaşıklığı kadardır.
+        /// O(1) denilebilir.
+        /// </summary>
         public void OrderComplete()
         {
             Order complete = queue.Dequeue();
@@ -88,11 +113,20 @@ namespace structs
             Console.WriteLine("Complete: {0}", complete.ToString());
         }
 
+        /// <summary>
+        /// Burada siparişi ilk önce string ifadeye dönüştüyoruz. Ondan sonra ekrana yazdırıyoruz.
+        /// Karmaşıklığı ToString() metodunun karmaşıklığı kadardır.
+        /// O(1)
+        /// </summary>
         public void Print()
         {
             Console.WriteLine(ToString());
         }
-
+        /// <summary>
+        /// Burada gelen sipariş kuyruğunu string ifadeye çevirir()
+        /// O(1)
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return queue.ToString();

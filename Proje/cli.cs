@@ -4,6 +4,9 @@ using structs;
 
 namespace CLI
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class Interface
     {
         public static Menu menu;
